@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": "zhangmunan",
   "bin": {
-    "create-vite": "index.js",
+    "create-vite": "src/index.ts",
     "cva": "index.js"
   },
   "files": [
