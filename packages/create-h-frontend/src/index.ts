@@ -19,6 +19,7 @@ import {
 
 // Avoids autoconversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string. See #4606
+// 解析命令行参数
 const argv = minimist<{
   template?: string
   help?: boolean
@@ -27,6 +28,8 @@ const argv = minimist<{
   alias: { h: 'help', t: 'template' },
   string: ['_'],
 })
+
+// 获取当前工作目录的绝对路径
 const cwd = process.cwd()
 
 // prettier-ignore
@@ -374,8 +377,7 @@ async function init() {
           }),
         },
         {
-          type: (framework: 
-            ) =>
+          type: (framework: Framework) =>
             framework && framework.variants ? 'select' : null,
           name: 'variant',
           message: reset('Select a variant:'),
