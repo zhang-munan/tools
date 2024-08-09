@@ -374,7 +374,8 @@ async function init() {
           }),
         },
         {
-          type: (framework: Framework) =>
+          type: (framework: 
+            ) =>
             framework && framework.variants ? 'select' : null,
           name: 'variant',
           message: reset('Select a variant:'),
