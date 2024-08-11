@@ -1,0 +1,37 @@
+html,
+body,
+#root {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+body {
+	background: var(--card-bg-color);
+}
+
+* {
+	box-sizing: border-box;
+
+	// 滚动条
+	&::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background: var(--scrollbar-thumb-color);
+	}
+
+	&::-webkit-scrollbar-track {
+		border-radius: 4px;
+		background: var(--scrollbar-track-color);
+	}
+}
+
+.text-last-justify {
+	text-align-last: justify;
+}

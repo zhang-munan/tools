@@ -1,7 +1,6 @@
 import path from 'node:path'
 import url from 'node:url'
 import { defineBuildConfig } from 'unbuild'
-// import licensePlugin from '../vite/rollupLicensePlugin'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 
@@ -20,15 +19,9 @@ export default defineBuildConfig({
     prompts: 'prompts/lib/index.js',
   },
   hooks: {
-    'rollup:options'(ctx, options) {
+    'rollup:options'(_, options) {
       options.plugins = [
         options.plugins,
-        // @ts-expect-error TODO: unbuild uses rollup v3 and Vite uses rollup v4
-        // licensePlugin(
-        //   path.resolve(__dirname, './LICENSE'),
-        //   'create-vite license',
-        //   'create-vite',
-        // ),
       ]
     },
   },

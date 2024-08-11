@@ -1,0 +1,56 @@
+html {
+	// 主题色
+	--primary-color: #f15a22;
+	--light-primary-color: #f17446;
+	--secondary-color: #6c757d;
+	--light-secondary-color: #efc182;
+
+	// 辅助色
+	--success-color: #28a745;
+	--info-color: #77777b;
+	--warning-color: #ffc107;
+	--danger-color: #dc3545;
+	--sub-color: #fe7d18;
+
+	// 背景颜色
+	--body-bg-color: #fff;
+	--card-bg-color: #fff;
+	--navbar-bg-color: #343a40;
+
+	// 字体颜色
+	--text-color: #333;
+	--light-text-color: #999;
+	--info-text-color: #77777b;
+	--text-assist-color: #c99d69;
+	--text-href: #0a99ff;
+
+	// 边框颜色
+	--border-color: #dee2e6;
+	--light-border-color: #e9ecef;
+	--medium-border-color: #ced4da;
+	--dark-border-color: #343a40;
+
+	// 按钮颜色
+	--primary-btn-bg-color: var(--primary-color);
+	--secondary-btn-bg-color: var(--secondary-color);
+	--success-btn-bg-color: var(--success-color);
+	--info-btn-bg-color: var(--info-color);
+	--warning-btn-bg-color: var(--warning-color);
+	--danger-btn-bg-color: var(--danger-color);
+
+	// 阴影
+	--box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+
+	// 字体
+	--font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	--font-size-base: 14px;
+	--font-weight-base: 400;
+
+	// 滚动条
+	--scrollbar-thumb-color: #d1d5db;
+	--scrollbar-track-color: #e5e7eb;
+	// --scrollbar-track-color: transparent;
+
+	// 内容主要宽度
+	--container-width: 1148px;
+}
