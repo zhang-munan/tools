@@ -1,3 +1,5 @@
+import { message } from "ant-design-vue";
+
 export default defineComponent({
 	name: "Edit",
 	props: {},
@@ -6,103 +8,133 @@ export default defineComponent({
 			{
 				tag: "div",
 				props: {
-					class: "px-5 py-10 w-[80%] mx-auto"
+					"data-key": "page"
 				},
 				children: [
 					{
 						tag: "div",
 						props: {
-							class: "text-2xl font-bold mb-10 text-center"
-						},
-						children: "产品与服务"
-					},
-					{
-						tag: "div",
-						props: {
-							class: "flex"
+							class: "px-5 py-10 w-[80%] mx-auto",
+							"data-key": "1"
 						},
 						children: [
 							{
 								tag: "div",
 								props: {
-									class: "flex-1 h-[200px] bg-blue-100 flex flex-col items-center py-5"
+									class: "text-2xl font-bold mb-10 text-center",
+									"data-key": "2"
 								},
-								children: [
-									{
-										tag: "div",
-										props: {
-											class: "w-[60px] h-[60px] bg-blue-200 mb-5"
-										}
-									},
-									{
-										tag: "div",
-										props: {
-											class: "text-xl text-center mb-3"
-										},
-										children: "一站式业务接入"
-									},
-									{
-										tag: "div",
-										props: {
-											class: "text-sm text-center"
-										},
-										children: "支付、结算、核算接入产品效率翻四倍"
-									}
-								]
+								children: "产品与服务"
 							},
 							{
 								tag: "div",
 								props: {
-									class: "flex-1 h-[200px] bg-blue-100 flex flex-col items-center py-5"
+									class: "flex",
+									"data-key": "3"
 								},
 								children: [
 									{
 										tag: "div",
 										props: {
-											class: "w-[60px] h-[60px] bg-blue-200 mb-5"
-										}
+											class: "flex-1 h-[200px] bg-blue-100 flex flex-col items-center py-5",
+											"data-key": "4"
+										},
+										children: [
+											{
+												tag: "div",
+												props: {
+													class: "w-[60px] h-[60px] bg-blue-200 mb-5 hover:bg-red-300",
+													"data-key": "5",
+													onClick: () => {
+														message.info("点击了第一个");
+													}
+												}
+											},
+											{
+												tag: "div",
+												props: {
+													class: "text-xl text-center mb-3",
+													"data-key": "6"
+												},
+												children: "一站式业务接入"
+											},
+											{
+												tag: "div",
+												props: {
+													class: "text-sm text-center",
+													"data-key": "7"
+												},
+												children: "支付、结算、核算接入产品效率翻四倍"
+											}
+										]
 									},
 									{
 										tag: "div",
 										props: {
-											class: "text-xl text-center mb-3"
+											class: "flex-1 h-[200px] bg-blue-100 flex flex-col items-center py-5"
 										},
-										children: "一站式业务接入"
+										children: [
+											{
+												tag: "div",
+												props: {
+													class: "w-[60px] h-[60px] bg-blue-200 mb-5",
+													"data-key": "8",
+													onClick: () => {
+														message.info("点击了第二个");
+													}
+												}
+											},
+											{
+												tag: "div",
+												props: {
+													class: "text-xl text-center mb-3",
+													"data-key": "9"
+												},
+												children: "一站式业务接入"
+											},
+											{
+												tag: "div",
+												props: {
+													class: "text-sm text-center",
+													"data-key": "10"
+												},
+												children: "支付、结算、核算接入产品效率翻四倍"
+											}
+										]
 									},
 									{
 										tag: "div",
 										props: {
-											class: "text-sm text-center"
+											class: "flex-1 h-[200px] bg-blue-100 flex flex-col items-center py-5"
 										},
-										children: "支付、结算、核算接入产品效率翻四倍"
-									}
-								]
-							},
-							{
-								tag: "div",
-								props: {
-									class: "flex-1 h-[200px] bg-blue-100 flex flex-col items-center py-5"
-								},
-								children: [
-									{
-										tag: "div",
-										props: {
-											class: "w-[60px] h-[60px] bg-blue-200 mb-5"
-										}
-									},
-									{
-										tag: "div",
-										props: {
-											class: "text-xl text-center mb-3"
-										},
-										children: "一站式业务接入"
-									},
-									{
-										tag: "div",
-										props: {
-											class: "text-sm text-center"
-										},
-										children: "支付、结算、核算接入产品效率翻四倍"
+										children: [
+											{
+												tag: "div",
+												props: {
+													class: "w-[60px] h-[60px] bg-blue-200 mb-5",
+													"data-key": "11",
+													onClick: () => {
+														message.info("点击了第三个");
+													}
+												}
+											},
+											{
+												tag: "div",
+												props: {
+													class: "text-xl text-center mb-3",
+													"data-key": "12"
+												},
+												children: "一站式业务接入"
+											},
+											{
+												tag: "div",
+												props: {
+													class: "text-sm text-center",
+													"data-key": "13"
+												},
+												children: "支付、结算、核算接入产品效率翻四倍"
+											}
+										]
 									}
 								]
 							}

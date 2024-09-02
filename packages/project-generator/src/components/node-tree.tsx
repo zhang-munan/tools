@@ -11,6 +11,34 @@ export default defineComponent({
 	setup(props) {
 		const parent = ref<HTMLElement | null>(null);
 		const posStyle = ref();
+		const selectStyle = ref();
+		const currentHoverRect = ref({});
+		const currentSelectRect = ref({});
+		const currentHoverKey = ref("");
+		const currentClickKey = ref("");
+
+		const handleMouseEvent = (e) => {
+			// 获取元素的唯一标识
+			const key = e.target.getAttribute("data-key");
+			if (currentHoverKey.value === key) return;
+			if (parent.value) {
+				currentHoverKey.value = key;
+
+				const parentRect = parent.value.getBoundingClientRect();
+				const childRect = (e.target as HTMLElement).getBoundingClientRect();
+
+				const top = childRect.top - parentRect.top;
+				const left = childRect.left - parentRect.left;
+				const width = childRect.width.toFixed(0);
+				const height = childRect.height.toFixed(0);
+				posStyle.value = `visibility: visible; top: ${top}px; left: ${left}px; width: ${width}px; height: ${height}px;`;
+				console.log("posStyle.value", posStyle.value);
+			}
+		};
+
+		const wrapperLeave = () => {
+			posStyle.value = `visibility: hidden;`;
+		}
 
 		const node = (obj) => {
 			return h(
@@ -18,17 +46,11 @@ export default defineComponent({
 				{
 					...obj.props,
 					class: `${obj.props?.class || ""} cursor-pointer`,
-					onMouseenter: (e) => {
-						if (parent.value) {
-							const parentRect = parent.value.getBoundingClientRect();
-							const childRect = (e.target as HTMLElement).getBoundingClientRect();
-
-							const top = childRect.top - parentRect.top;
-							const left = childRect.left - parentRect.left;
-							const width = childRect.width.toFixed(0);
-							const height = childRect.height.toFixed(0);
-							posStyle.value = `top: ${top}px; left: ${left}px; width: ${width}px; height: ${height}px;`;
-							console.log("posStyle.value", posStyle.value);
+					onClick: () => {
+						currentClickKey.value = obj.key;
+						selectStyle.value = posStyle.value;
+					  if (obj.props?.onClick) {
+					    obj.props.onClick?.();
 						}
 					}
 				},
@@ -52,11 +74,27 @@ export default defineComponent({
 		};
 
 		return () => (
-			<div ref={parent} class="relative">
-				{renderTree(props.tree)}
+			<div ref={parent} class="relative" onMouseleave={wrapperLeave}>
 				<div
-					class={`border border-dashed border-gray-600 bg-[rgba(102,102,102,0.05)] absolute cursor-pointer`}
+					data-key="wrapper"
+					onMousemove={handleMouseEvent}
+					onMouseenter={handleMouseEvent}
+					// onClick={onClick}
+					// onDoubleClick={this.onDoubleClick}
+					// style={{ height: overlayHeight }}
+				>
+					{renderTree(props.tree)}
+				</div>
+				{/* hover */}
+				<div
+					class={`border border-dashed border-gray-600 bg-[rgba(102,102,102,0.05)] absolute cursor-pointer pointer-events-none`}
 					style={posStyle.value}></div>
+				{/* select */}
+				<div
+					class={`border-[2px] border-solid border-blue-600 bg-[rgba(102,102,102,0.05)] absolute cursor-pointer pointer-events-none`}
+					style={selectStyle.value}>
+						
+					</div>
 			</div>
 		);
 	}
