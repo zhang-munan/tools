@@ -17,6 +17,11 @@ export default defineComponent({
 		const currentHoverKey = ref("");
 		const currentClickKey = ref("");
 
+		// 监听窗体大小变化
+		window.addEventListener("resize", () => {
+		  selectStyle.value = {}
+		})
+
 		const handleMouseEvent = (e) => {
 			// 获取元素的唯一标识
 			const key = e.target.getAttribute("data-key");
@@ -91,7 +96,7 @@ export default defineComponent({
 					style={posStyle.value}></div>
 				{/* select */}
 				<div
-					class={`border-[2px] border-solid border-blue-600 bg-[rgba(102,102,102,0.05)] absolute cursor-pointer pointer-events-none`}
+					class={`border-[${selectStyle.value ? 2 : 0}px] border-solid border-blue-600 bg-[rgba(102,102,102,0.05)] absolute cursor-pointer pointer-events-none`}
 					style={selectStyle.value}>
 						
 					</div>

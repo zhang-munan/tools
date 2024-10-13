@@ -144,25 +144,39 @@ export default defineComponent({
 			}
 		]);
 
+		const el = ref<HTMLElement | null>(null);
+
+		const { x, y, style } = useDraggable(el, {
+			initialValue: { x: 40, y: 40 }
+		});
+
+		onMounted(() => {
+			if (el.value === null) {
+				console.error("DOM element not initialized");
+			} else {
+				console.log("DOM element initialized:", el.value);
+			}
+		});
+
 		const renderTop = () => {
 			return <div class="fixed top-0 left-0 right-0 h-[50px] bg-[#2C2C2C]"></div>;
 		};
-		const renderSide = () => {
-			return (
-				<div class="fixed left-0 top-[50px] bottom-0 w-[260px] shadow-[0_0_20px_-8px_rgba(0,0,0,0.3)]"></div>
-			);
-		};
+		// const renderSide = () => {
+		// 	return (
+		// 		<div class="fixed left-0 top-[50px] bottom-0 w-[260px] shadow-[0_0_20px_-8px_rgba(0,0,0,0.3)]"></div>
+		// 	);
+		// };
 
 		const renderMain = () => {
 			return (
-				<div class="fixed left-[280px] right-[280px] top-[70px] bottom-5 border border-solid border-gray-100 rounded-lg flex flex-col overflow-hidden">
-					<div class="h-7 bg-gray-200 px-3 flex items-center">
+				<div class="fixed left-0 right-[300px] top-[50px] bottom-0 border border-solid border-gray-100 flex flex-col overflow-hidden">
+					{/* <div class="h-7 bg-gray-200 px-3 flex items-center">
 						<a-space>
 							<div class="w-3 h-3 rounded-full bg-red-500"></div>
 							<div class="w-3 h-3 rounded-full bg-yellow-500"></div>
 							<div class="w-3 h-3 rounded-full bg-green-500"></div>
 						</a-space>
-					</div>
+					</div> */}
 					<div class="flex-1 overflow-y-auto">
 						<node-tree tree={pageConfig}></node-tree>
 					</div>
@@ -172,16 +186,71 @@ export default defineComponent({
 
 		const renderProps = () => {
 			return (
-				<div class="fixed right-0 top-[50px] bottom-0 w-[260px] shadow-[0_0_20px_-8px_rgba(0,0,0,0.3)]"></div>
+				<div class="fixed right-0 top-[50px] bottom-0 w-[300px] shadow-[0_0_20px_-8px_rgba(0,0,0,0.3)]"></div>
 			);
 		};
+
+		const activeKey = ref(["1"]);
+		const text = `A dog is a type of domesticated animal.Known for its loyalty and faithfulness,it can be found as a welcome guest in many households across the world.`;
+
+		const classDraggable = ref("cursor-all-scroll");
 
 		return () => (
 			<div class="relative">
 				<div class="">{renderTop()}</div>
-				<div class="">{renderSide()}</div>
+				{/* <div class="">{renderSide()}</div> */}
 				<div class="">{renderMain()}</div>
 				<div class="">{renderProps()}</div>
+				<div
+					ref={el}
+					class={`fixed h-[700px] w-[360px] bg-white rounded-lg shadow-lg ${classDraggable}`}
+					style={unref(style)}>
+					{/* 顶部 */}
+					<div class="h-[60px] bg-[#5A75D5] rounded-t-lg"></div>
+					{/* Tab */}
+					<div class=""></div>
+					{/* 内容 */}
+					<a-collapse
+						v-model:activeKey={activeKey.value}
+						bordered={false}
+						style="background: rgb(255, 255, 255)">
+						{{
+							default: () => {
+								return (
+									<>
+										<a-collapse-panel key="1" header="常用">
+											<div class="grid grid-cols-4 gap-3 text-gray-600">
+												<div class="flex flex-col items-center">
+													<div class="w-8 h-8 bg-red-500"></div>
+													<div class="text-xs mt-2">文本</div>
+												</div>
+												<div class="flex flex-col items-center">
+													<div class="w-8 h-8 bg-red-500"></div>
+													<div class="text-xs mt-2">文本</div>
+												</div>
+												<div class="flex flex-col items-center">
+													<div class="w-8 h-8 bg-red-500"></div>
+													<div class="text-xs mt-2">文本</div>
+												</div>
+												<div class="flex flex-col items-center">
+													<div class="w-8 h-8 bg-red-500"></div>
+													<div class="text-xs mt-2">文本</div>
+												</div>
+											</div>
+										</a-collapse-panel>
+										<a-collapse-panel key="2" header="基础">
+											<p>{text}</p>
+										</a-collapse-panel>
+										<a-collapse-panel key="3" header="组合">
+											<p>{text}</p>
+										</a-collapse-panel>
+									</>
+								);
+							}
+							// expandIcon: ({ isActive }) => <caret-right-outlined rotate={isActive ? 90 : 0} />
+						}}
+					</a-collapse>
+				</div>
 			</div>
 		);
 	}
