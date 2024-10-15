@@ -1,9 +1,11 @@
 import { message } from "ant-design-vue";
+import { useCreateCode } from "/@/hooks/useCreateCode";
 
 export default defineComponent({
 	name: "Edit",
 	props: {},
 	setup() {
+		const { createCode } = useCreateCode();
 		const pageConfig = reactive([
 			{
 				tag: "div",
@@ -145,10 +147,21 @@ export default defineComponent({
 		]);
 
 		const el = ref<HTMLElement | null>(null);
+		const codePreviewInstance = ref<{ open: ({ code: string }) => void } | null>(null);
 
 		const { x, y, style } = useDraggable(el, {
 			initialValue: { x: 40, y: 40 }
 		});
+
+		// 代码查看
+		const onCodePreview = () => {
+			codePreviewInstance.value?.open({
+				code: createCode({
+					code: pageConfig,
+					language: "vue"
+				})
+			});
+		};
 
 		onMounted(() => {
 			if (el.value === null) {
@@ -159,7 +172,13 @@ export default defineComponent({
 		});
 
 		const renderTop = () => {
-			return <div class="fixed top-0 left-0 right-0 h-[50px] bg-[#2C2C2C]"></div>;
+			return (
+				<div class="fixed top-0 left-0 right-0 h-[50px] bg-[#2C2C2C]">
+					<a-button type="primary" onClick={onCodePreview}>
+						导出
+					</a-button>
+				</div>
+			);
 		};
 		// const renderSide = () => {
 		// 	return (
@@ -251,6 +270,7 @@ export default defineComponent({
 						}}
 					</a-collapse>
 				</div>
+				<code-preview ref={codePreviewInstance} />
 			</div>
 		);
 	}

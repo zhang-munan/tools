@@ -96,7 +96,7 @@ export default defineComponent({
 					style={posStyle.value}></div>
 				{/* select */}
 				<div
-					class={`border-[${selectStyle.value ? 2 : 0}px] border-solid border-blue-600 bg-[rgba(102,102,102,0.05)] absolute cursor-pointer pointer-events-none`}
+					class={`${selectStyle.value ? 'border-2' : ''} border-solid border-blue-600 bg-[rgba(102,102,102,0.05)] absolute cursor-pointer pointer-events-none`}
 					style={selectStyle.value}>
 						
 					</div>

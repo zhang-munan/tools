@@ -9,8 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@highlightjs/vue-plugin": "^2.1.0",
     "@vueuse/core": "^10.11.1",
     "ant-design-vue": "4.x",
+    "highlight.js": "^11.10.0",
     "mitt": "^3.0.1",
     "pinia": "^2.2.1",
     "vue": "^3.4.37",
