@@ -23,7 +23,7 @@ export default defineComponent({
 							{
 								tag: "div",
 								props: {
-									class: "text-2xl font-bold mb-10 text-center",
+									class: "text-2xl font-bold mb-10 text-center w-full",
 									"data-key": "2"
 								},
 								children: "产品与服务"
@@ -73,6 +73,7 @@ export default defineComponent({
 									{
 										tag: "div",
 										props: {
+											"data-key": "15",
 											class: "flex-1 h-[200px] bg-blue-100 flex flex-col items-center py-5"
 										},
 										children: [
@@ -92,7 +93,7 @@ export default defineComponent({
 													class: "text-xl text-center mb-3",
 													"data-key": "9"
 												},
-												children: "一站式业务接入"
+												children: "一站式事中风险监控"
 											},
 											{
 												tag: "div",
@@ -100,13 +101,14 @@ export default defineComponent({
 													class: "text-sm text-center",
 													"data-key": "10"
 												},
-												children: "支付、结算、核算接入产品效率翻四倍"
+												children: "在所有需求配置环节事前风险控制和质量控制能力"
 											}
 										]
 									},
 									{
 										tag: "div",
 										props: {
+											"data-key": "14",
 											class: "flex-1 h-[200px] bg-blue-100 flex flex-col items-center py-5"
 										},
 										children: [
@@ -126,7 +128,7 @@ export default defineComponent({
 													class: "text-xl text-center mb-3",
 													"data-key": "12"
 												},
-												children: "一站式业务接入"
+												children: "一站式数据运营"
 											},
 											{
 												tag: "div",
@@ -134,7 +136,7 @@ export default defineComponent({
 													class: "text-sm text-center",
 													"data-key": "13"
 												},
-												children: "支付、结算、核算接入产品效率翻四倍"
+												children: "沉淀产品接入效率和运营小二工作效率数据"
 											}
 										]
 									}
@@ -147,20 +149,32 @@ export default defineComponent({
 		]);
 
 		const el = ref<HTMLElement | null>(null);
-		const codePreviewInstance = ref<{ open: ({ code: string }) => void } | null>(null);
+		const codePreviewInstance = ref<{ open: ({ code }: { code: string }) => void } | null>(null);
+		const propsEditInstance = ref<{ set: (props: Record<string, any>) => void } | null>(null);
+		const currentSelectProps = ref<Record<string, any>>({});
 
-		const { x, y, style } = useDraggable(el, {
+		const { style } = useDraggable(el, {
 			initialValue: { x: 40, y: 40 }
 		});
 
 		// 代码查看
-		const onCodePreview = () => {
-			codePreviewInstance.value?.open({
-				code: createCode({
-					code: pageConfig,
-					language: "vue"
-				})
+		const onCodePreview = async () => {
+			const code = await createCode({
+				code: pageConfig,
+				language: "vue"
 			});
+			codePreviewInstance.value?.open({
+				code
+			});
+		};
+
+		/**
+		 * 点击节点
+		 * @param props
+		 */
+		const handleTreePropsChange = ({ props }) => {
+			// currentSelectProps.value = props;
+			propsEditInstance.value?.set(props);
 		};
 
 		onMounted(() => {
@@ -171,6 +185,10 @@ export default defineComponent({
 			}
 		});
 
+		/**
+		 * 顶部渲染
+		 * @returns JSX Element
+		 */
 		const renderTop = () => {
 			return (
 				<div class="fixed top-0 left-0 right-0 h-[50px] bg-[#2C2C2C]">
@@ -180,12 +198,17 @@ export default defineComponent({
 				</div>
 			);
 		};
+
 		// const renderSide = () => {
 		// 	return (
 		// 		<div class="fixed left-0 top-[50px] bottom-0 w-[260px] shadow-[0_0_20px_-8px_rgba(0,0,0,0.3)]"></div>
 		// 	);
 		// };
 
+		/**
+		 * 主体渲染
+		 * @returns JSX Element
+		 */
 		const renderMain = () => {
 			return (
 				<div class="fixed left-0 right-[300px] top-[50px] bottom-0 border border-solid border-gray-100 flex flex-col overflow-hidden">
@@ -197,7 +220,7 @@ export default defineComponent({
 						</a-space>
 					</div> */}
 					<div class="flex-1 overflow-y-auto">
-						<node-tree tree={pageConfig}></node-tree>
+						<node-tree tree={pageConfig} onChange={handleTreePropsChange}></node-tree>
 					</div>
 				</div>
 			);
@@ -205,7 +228,9 @@ export default defineComponent({
 
 		const renderProps = () => {
 			return (
-				<div class="fixed right-0 top-[50px] bottom-0 w-[300px] shadow-[0_0_20px_-8px_rgba(0,0,0,0.3)]"></div>
+				<div class="fixed right-0 top-[50px] bottom-0 w-[300px] shadow-[0_0_20px_-8px_rgba(0,0,0,0.3)]">
+					<props-edit ref={propsEditInstance}></props-edit>
+				</div>
 			);
 		};
 

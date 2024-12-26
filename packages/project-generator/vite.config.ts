@@ -50,13 +50,13 @@ export default defineConfig((prop) => {
 				// "/~": resolve("src/presets"),
 			}
 		},
-		// server: {
-		//   port: 9000,
-		//   proxy,
-		//   hmr: {
-		//     overlay: true,
-		//   },
-		// },
+		server: {
+		  port: 8000,
+		  // proxy,
+		  hmr: {
+		    overlay: true,
+		  },
+		},
 		build: {
 			minify: "esbuild", //用于指定 JS 代码压缩的工具，默认是 terser
 			assetsDir: "static", //用于指定生成静态资源的存放路径

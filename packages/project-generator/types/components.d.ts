@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     CodePreview: typeof import('./../src/components/code-preview.tsx')['default']
     NodeTree: typeof import('./../src/components/node-tree.tsx')['default']
+    PropsEdit: typeof import('./../src/components/props-edit.tsx')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

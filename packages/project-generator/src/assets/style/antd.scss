@@ -1,0 +1,12 @@
+.props-edit-tabs {
+	.ant-tabs-nav {
+		margin-bottom: 0;
+
+		&::before {
+			display: none;
+		}
+	}
+	.ant-tabs-ink-bar {
+		display: none;
+	}
+}

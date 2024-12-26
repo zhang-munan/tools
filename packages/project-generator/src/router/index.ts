@@ -16,6 +16,11 @@ export const routeList: RouteRecordRaw[] = [
 		// 	// 	}
 		// 	// },
 		// ]
+	},
+	{
+		path: "/demo",
+		name: "demo",
+		component: () => import("/@/pages/demo.vue"),
 	}
 ];
 
