@@ -1,5 +1,7 @@
 import * as prettier from "prettier";
 import prettierPluginVue from "prettier-plugin-vue";
+import * as prettierPluginHtml from 'prettier/parser-html';
+
 export const useCreateCode = () => {
 	/**
 	 * 创建代码
@@ -100,19 +102,20 @@ li {
 `;
 
 		// 文本内容
-		// const content = await prettier.format(text, {
-		// 	parser: "vue",
-		// 	useTabs: true,
-		// 	tabWidth: 4,
-		// 	endOfLine: "lf",
-		// 	semi: true,
-		// 	jsxBracketSameLine: true,
-		// 	singleQuote: false,
-		// 	printWidth: 100,
-		// 	trailingComma: "none"
-		// });
+		const content = await prettier.format(text, {
+			parser: "vue",
+			plugins: [prettierPluginVue, prettierPluginHtml],
+			useTabs: true,
+			tabWidth: 4,
+			endOfLine: "lf",
+			semi: true,
+			jsxBracketSameLine: true,
+			singleQuote: false,
+			printWidth: 100,
+			trailingComma: "none"
+		});
 
-		return text;
+		return content;
 	};
 
 	return {

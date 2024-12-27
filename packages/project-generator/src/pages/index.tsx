@@ -1,5 +1,6 @@
 import { message } from "ant-design-vue";
 import { useCreateCode } from "/@/hooks/useCreateCode";
+import DraggablePanel from '../components/draggable-panel';
 
 export default defineComponent({
 	name: "Edit",
@@ -151,11 +152,7 @@ export default defineComponent({
 		const el = ref<HTMLElement | null>(null);
 		const codePreviewInstance = ref<{ open: ({ code }: { code: string }) => void } | null>(null);
 		const propsEditInstance = ref<{ set: (props: Record<string, any>) => void } | null>(null);
-		const currentSelectProps = ref<Record<string, any>>({});
-
-		const { style } = useDraggable(el, {
-			initialValue: { x: 40, y: 40 }
-		});
+		// const currentSelectProps = ref<Record<string, any>>({});
 
 		// 代码查看
 		const onCodePreview = async () => {
@@ -211,7 +208,7 @@ export default defineComponent({
 		 */
 		const renderMain = () => {
 			return (
-				<div class="fixed left-0 right-[300px] top-[50px] bottom-0 border border-solid border-gray-100 flex flex-col overflow-hidden">
+				<div class="fixed left-0 right-[350px] top-[50px] bottom-0 border border-solid border-gray-100 flex flex-col overflow-hidden">
 					{/* <div class="h-7 bg-gray-200 px-3 flex items-center">
 						<a-space>
 							<div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -228,7 +225,7 @@ export default defineComponent({
 
 		const renderProps = () => {
 			return (
-				<div class="fixed right-0 top-[50px] bottom-0 w-[300px] shadow-[0_0_20px_-8px_rgba(0,0,0,0.3)]">
+				<div class="fixed right-0 top-[50px] bottom-0 w-[350px] shadow-[0_0_20px_-8px_rgba(0,0,0,0.3)]">
 					<props-edit ref={propsEditInstance}></props-edit>
 				</div>
 			);
@@ -237,18 +234,12 @@ export default defineComponent({
 		const activeKey = ref(["1"]);
 		const text = `A dog is a type of domesticated animal.Known for its loyalty and faithfulness,it can be found as a welcome guest in many households across the world.`;
 
-		const classDraggable = ref("cursor-all-scroll");
-
 		return () => (
 			<div class="relative">
 				<div class="">{renderTop()}</div>
-				{/* <div class="">{renderSide()}</div> */}
 				<div class="">{renderMain()}</div>
 				<div class="">{renderProps()}</div>
-				<div
-					ref={el}
-					class={`fixed h-[700px] w-[360px] bg-white rounded-lg shadow-lg ${classDraggable}`}
-					style={unref(style)}>
+				<DraggablePanel>
 					{/* 顶部 */}
 					<div class="h-[60px] bg-[#5A75D5] rounded-t-lg"></div>
 					{/* Tab */}
@@ -257,7 +248,8 @@ export default defineComponent({
 					<a-collapse
 						v-model:activeKey={activeKey.value}
 						bordered={false}
-						style="background: rgb(255, 255, 255)">
+						style="background: rgb(255, 255, 255)"
+					>
 						{{
 							default: () => {
 								return (
@@ -294,7 +286,7 @@ export default defineComponent({
 							// expandIcon: ({ isActive }) => <caret-right-outlined rotate={isActive ? 90 : 0} />
 						}}
 					</a-collapse>
-				</div>
+				</DraggablePanel>
 				<code-preview ref={codePreviewInstance} />
 			</div>
 		);
